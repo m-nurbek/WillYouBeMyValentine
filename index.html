@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Website</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Great+Vibes&display=swap" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+            background: #FFE3EC;
+            font-family: 'Pangolin', cursive;
+            font-size: 1.7vmin;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+        }
+
+        .container {
+            position: relative;
+            top: 0vmin;
+        }
+
+        .envelope {
+            position: relative;
+            background: #eb7885;
+            height: 40vmin;
+            width: 60vmin;
+        }
+
+        .card {
+            position: absolute;
+            background: white;
+            height: 38vmin;
+            width: 55vmin;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            left: 2.5vmin;
+            top: 0vmin;
+
+            animation: slide-rev 0.2s ease-out;
+        }
+
+        .message {
+            position: absolute;
+            top: 5vmin;
+        }
+
+        .cover {
+            position: absolute;
+            height: 0;
+            width: 0;
+
+            border-bottom: 25vmin solid #f5b5bb;
+            border-left: 30vmin solid transparent;
+            border-right: 30vmin solid transparent;
+            top: 15.4vmin;
+            z-index: 3;
+        }
+
+        .cover::after {
+            /*left triangle*/
+            position: absolute;
+            content: '';
+            border-left: 30vmin solid #ffbbc1;
+            border-bottom: 24vmin solid transparent;
+            border-top: 16vmin solid transparent;
+            top: -15vmin;
+            left: -30vmin;
+        }
+
+        .cover::before {
+            position: absolute;
+            content: '';
+            border-right: 30vmin solid #ffbbc1;
+            border-bottom: 24vmin solid transparent;
+            border-top: 16vmin solid transparent;
+            top: -15vmin;
+            left: -0vmin;
+        }
+
+        .lid {
+            position: absolute;
+            height: 0;
+            width: 0;
+
+            border-top: 17vmin solid #ff8896;
+            border-left: 30vmin solid transparent;
+            border-right: 30vmin solid transparent;
+
+            top: 0;
+            transform-origin: top;
+            animation: open-rev 2s;
+        }
+
+        @media (hover: hover) {
+            .container:hover .lid {
+                animation: open 0.5s;
+                animation-fill-mode: forwards;
+            }
+
+            .container:hover .card {
+                animation: slide 0.2s;
+                animation-delay: 0.5s;
+                animation-fill-mode: forwards;
+            }
+        }
+
+        .shadow {
+            position: relative;
+            top: 3vmin;
+            border-radius: 50%;
+            height: 4vmin;
+            width: 60vmin;
+            background: #e8c5d0;
+            filter: blur(5px);
+        }
+
+        @keyframes open {
+            100% {
+                transform: rotatex(180deg);
+            }
+        }
+
+        @keyframes slide {
+            100% {
+                transform: translatey(-15vmin);
+                z-index: 2;
+            }
+        }
+
+        @keyframes open-rev {
+            from {
+                transform: rotatex(-180deg);
+
+            }
+        }
+
+        @keyframes slide-rev {
+            from {
+                transform: translatey(-15vmin);
+            }
+        }
+
+        .goose {
+            overflow: hidden;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: end;
+        }
+
+        .goose img {
+            height: 60%;
+            margin-bottom: 4px;
+            object-fit: cover;
+        }
+
+        .button {
+            position: absolute;
+            bottom: 14vmin;
+            left: 26vmin;
+            z-index: 20;
+        }
+
+        .button {
+            display: inline-block;
+            font-size: 1.2em;
+            color: #fff;
+            padding: 1.4vmin 2vmin;
+            background-color: #ff7c7c;
+            border-radius: 15px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #ff6464;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="envelope"></div>
+        <div class="card">
+            <h1 class="message">DARIYA, WILL YOU BE MY VALENTINE?💖</h1>
+            <div class="goose">
+                <img src="GooseHonkingGooseGIF.gif" alt="goose">
+            </div>
+        </div>
+        <div class="cover"></div>
+        <div class="lid"></div>
+        <div class="shadow"></div>
+        <button class="button yes-button">YES</button>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.1"></script>
+    <script>
+        const yesButton = document.querySelector('.yes-button');
+        yesButton.addEventListener('click', () => {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                shapes: ['circle', 'square', 'heart'],
+                colors: ['#ff0000', '#ff4d4d', '#ffcccc', '#ff1a1a']
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('.container').on('touchstart', function () {
+                $(this).find('.lid').css('animation', 'open 1s forwards');
+                $(this).find('.card').css('animation', 'slide 0.2s 1s forwards');
+            });
+
+            $('.container').on('touchend', function () {
+                $(this).find('.lid').css('animation', '');
+                $(this).find('.card').css('animation', '');
+            });
+        });
+    </script>
+</body>
+
+</html>
